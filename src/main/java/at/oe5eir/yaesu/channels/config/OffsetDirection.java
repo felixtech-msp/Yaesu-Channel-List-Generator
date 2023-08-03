@@ -1,4 +1,4 @@
-package at.oe5eir.yaesufm.channels.config;
+package at.oe5eir.yaesu.channels.config;
 
 /*
  *  Copyright (C) 2023 OE5EIR @ https://www.oe5eir.at/
@@ -16,17 +16,15 @@ package at.oe5eir.yaesufm.channels.config;
  *  limitations under the License.
  */
 
-public enum DcsPolarity {
-    RNTN("RX Normal TX Normal"),
-    RITN("RX Invert TX Normal"),
-    RBTN("RX Both   TX Normal"),
-    RNTI("RX Normal TX Invert"),
-    RITI("RX Invert TX Invert"),
-    RBTI("RX Both   TX Invert");
+public enum OffsetDirection {
+    OFF("OFF"),
+    RPTP("+RPT"),
+    RPTM("-RPT"),
+    PM("-/+");
 
-    private String identifier;
+    private final String identifier;
 
-    DcsPolarity(String identifier) {
+    OffsetDirection(String identifier) {
         this.identifier = identifier;
     }
 

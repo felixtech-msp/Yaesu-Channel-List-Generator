@@ -1,4 +1,4 @@
-package at.oe5eir.yaesufm.channels;
+package at.oe5eir.yaesu.channels.config;
 
 /*
  *  Copyright (C) 2023 OE5EIR @ https://www.oe5eir.at/
@@ -16,13 +16,24 @@ package at.oe5eir.yaesufm.channels;
  *  limitations under the License.
  */
 
-import at.oe5eir.yaesufm.channels.config.Channel;
+public enum ToneMode {
+    OFF("OFF"),
+    TONE("TONE"),
+    TONESQL("TONE SQL"),
+    DCS("DCS"),
+    REVTONE("REV TONE"),
+    JRFREQ("JR FREQ"),
+    PRFREQ("PR FREQ"),
+    PAGER("PAGER");
 
-import java.util.Comparator;
+    private String identifier;
 
-public class ChannelComparator implements Comparator<Channel> {
+    ToneMode(String identifier) {
+        this.identifier = identifier;
+    }
+
     @Override
-    public int compare(Channel o1, Channel o2) {
-        return o1.getChannelName().compareTo(o2.getChannelName());
+    public String toString() {
+        return identifier;
     }
 }

@@ -1,4 +1,4 @@
-package at.oe5eir.yaesufm.channels;
+package at.oe5eir.yaesu.channels;
 
 /*
  *  Copyright (C) 2023 OE5EIR @ https://www.oe5eir.at/
@@ -16,9 +16,9 @@ package at.oe5eir.yaesufm.channels;
  *  limitations under the License.
  */
 
-import at.oe5eir.yaesufm.channels.config.Channel;
-import at.oe5eir.yaesufm.channels.config.OffsetDirection;
-import at.oe5eir.yaesufm.channels.config.ToneMode;
+import at.oe5eir.yaesu.channels.config.OffsetDirection;
+import at.oe5eir.yaesu.channels.config.ToneMode;
+import at.oe5eir.yaesu.channels.config.Channel;
 import org.apache.commons.text.CaseUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -30,7 +30,7 @@ import java.net.URL;
 import java.util.*;
 
 /**
- * Generator for Austria FM Channel List for Yaesu FT3D Radios
+ * Generator for Austrian Repeater List for Yaesu FT3D Radios
  * Parameter: Output File
  */
 public final class Main {

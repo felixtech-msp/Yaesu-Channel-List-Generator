@@ -1,4 +1,4 @@
-package at.oe5eir.yaesufm.channels.config;
+package at.oe5eir.yaesu.channels;
 
 /*
  *  Copyright (C) 2023 OE5EIR @ https://www.oe5eir.at/
@@ -16,6 +16,13 @@ package at.oe5eir.yaesufm.channels.config;
  *  limitations under the License.
  */
 
-public enum Skip {
-    OFF, SKIP, SELECT
+import at.oe5eir.yaesu.channels.config.Channel;
+
+import java.util.Comparator;
+
+public class ChannelComparator implements Comparator<Channel> {
+    @Override
+    public int compare(Channel o1, Channel o2) {
+        return o1.getChannelName().compareTo(o2.getChannelName());
+    }
 }

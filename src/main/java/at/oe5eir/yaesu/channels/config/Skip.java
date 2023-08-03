@@ -1,4 +1,4 @@
-package at.oe5eir.yaesufm.channels.config;
+package at.oe5eir.yaesu.channels.config;
 
 /*
  *  Copyright (C) 2023 OE5EIR @ https://www.oe5eir.at/
@@ -16,6 +16,6 @@ package at.oe5eir.yaesufm.channels.config;
  *  limitations under the License.
  */
 
-public enum DigAnalog {
-    FM, AM, AMS, DN
+public enum Skip {
+    OFF, SKIP, SELECT
 }

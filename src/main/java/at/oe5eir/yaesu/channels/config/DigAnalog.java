@@ -1,4 +1,4 @@
-package at.oe5eir.yaesufm.channels.config;
+package at.oe5eir.yaesu.channels.config;
 
 /*
  *  Copyright (C) 2023 OE5EIR @ https://www.oe5eir.at/
@@ -16,24 +16,6 @@ package at.oe5eir.yaesufm.channels.config;
  *  limitations under the License.
  */
 
-public enum ToneMode {
-    OFF("OFF"),
-    TONE("TONE"),
-    TONESQL("TONE SQL"),
-    DCS("DCS"),
-    REVTONE("REV TONE"),
-    JRFREQ("JR FREQ"),
-    PRFREQ("PR FREQ"),
-    PAGER("PAGER");
-
-    private String identifier;
-
-    ToneMode(String identifier) {
-        this.identifier = identifier;
-    }
-
-    @Override
-    public String toString() {
-        return identifier;
-    }
+public enum DigAnalog {
+    FM, AM, AMS, DN
 }

@@ -1,3 +1,3 @@
 Manifest-Version: 1.0
-Main-Class: at.oe5eir.yaesufm.channels.Main
+Main-Class: at.oe5eir.yaesu.channels.Main
 

@@ -1,4 +1,4 @@
-# Channel List Generator for Yaesu FT3D Radios
+# Repeater List Generator for Yaesu FT3D Radios
 
 This application creates the repeater list based on the OEVSV database for Yaesu FT3D radios which can be imported to the radio via the CPS.
 It generates a channel list with all Austrian FM and C4FM repeaters.
