@@ -12,7 +12,7 @@ It generates a channel list with all Austrian FM and C4FM repeaters.
 ## Run the application
 Open a shell on your machine and navigate to the folder containing the downloaded or self-created JAR file.
 
-Then run: `java -jar yaesu-channel-list-generator.jar [OUTPUT FILE]`
+Then run in a terminal: `java -jar yaesu-channel-list-generator.jar [OUTPUT FILE]`
 
 ## Import into CPS
 

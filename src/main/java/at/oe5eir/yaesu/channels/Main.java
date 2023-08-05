@@ -19,7 +19,6 @@ package at.oe5eir.yaesu.channels;
 import at.oe5eir.yaesu.channels.config.OffsetDirection;
 import at.oe5eir.yaesu.channels.config.ToneMode;
 import at.oe5eir.yaesu.channels.config.Channel;
-import org.apache.commons.text.CaseUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -34,14 +33,31 @@ import java.util.*;
  * Parameter: Output File
  */
 public final class Main {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         long time = System.currentTimeMillis();
 
-        if (args.length != 1) {
-            System.out.println("Parameter 1: output filename");
-            return;
+        System.setProperty("file.encoding", "UTF-8");
+
+        switch (args.length) {
+            case 1:
+                try {
+                    main(args[0]);
+                } catch (Exception e) {
+                    System.err.println(Util.getCause(e));
+                }
+                break;
+            case 0:
+                GUI.show();
+                return;
+            default:
+                System.out.println("Parameter 1: output filename");
+                return;
         }
 
+        System.out.println(String.format("Completed in %.1f seconds.", (System.currentTimeMillis() - time) / 1000.0f));
+    }
+
+    public static void main(String file) throws IOException {
         System.out.println("Getting data from OEVSV Repeater API...");
 
         JSONArray fm70cm = getJsonData("https://repeater.oevsv.at/api/trx?status=eq.active&type_of_station=eq.repeater_voice&fm=eq.true&band=eq.70cm");
@@ -60,7 +76,7 @@ public final class Main {
 
         Locale.setDefault(Locale.US);
 
-        File csvFile = new File(args[0]);
+        File csvFile = new File(file);
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(csvFile))) {
             int i = 1;
@@ -86,10 +102,7 @@ public final class Main {
             }
         }
 
-        System.out.println("Done!");
         System.out.println("List Location: " + csvFile.getAbsoluteFile());
-
-        System.out.println(String.format("Completed in %.1f seconds.", (System.currentTimeMillis() - time) / 1000.0f));
     }
 
     private static JSONArray getJsonData(String apiUrl) throws IOException {
@@ -213,7 +226,7 @@ public final class Main {
         str = str.replace("ä","ae");
         str = str.replace("ö","oe");
         str = str.replace("ü","ue");
-        str = CaseUtils.toCamelCase(str, true, ' ', '-', '.');
+        str = Util.toCamelCase(str, true, ' ', '-', '.');
         str = str.trim();
 
         if (str.length() > len)
