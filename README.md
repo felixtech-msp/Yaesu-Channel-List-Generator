@@ -9,10 +9,24 @@ It generates a channel list with all Austrian FM and C4FM repeaters.
  - Yaesu FT3D Programmer ADMS-11 Version 1.0.0.0 or newer
  - IntelliJ IDEA (if you want to modify this program)
 
-## Run the application
+## Run the application with a user interface (GUI)
+
+Double-click the downloaded file. Java should automatically open the application.
+
+*Notice: The GUI is currently in development and not yet available!*
+
+## Run the application via Command Line (CLI)
 Open a shell on your machine and navigate to the folder containing the downloaded or self-created JAR file.
 
-Then run in a terminal: `java -jar yaesu-channel-list-generator.jar [OUTPUT FILE]`
+You have to decide if you want the location name (mountain name) or the closest city as a channel name.
+
+Mountain name as channel name: \
+Run in a terminal: `java -jar yaesu-channel-list-generator.jar [OUTPUT FILE]` \
+Example: `java -jar yaesu-channel-list-generator.jar channels.csv`
+
+City name as channel name: \
+Run in a terminal: `java -jar yaesu-channel-list-generator.jar [OUTPUT FILE] city` \
+Example: `java -jar yaesu-channel-list-generator.jar channels.csv city`
 
 ## Import into CPS
 
@@ -28,9 +42,13 @@ Then run in a terminal: `java -jar yaesu-channel-list-generator.jar [OUTPUT FILE
 The FT3D can't have different CTCSS settings for Rx and Tx. The Rx CTCSS setting of the repeater (Tx on the radio) is used for Rx and Tx.
 If Rx and Tx CTCSS settings don't match, a warning is displayed.
 
+## Support
+
+If you need support, have questions or feature requests, contact me. You find my contact information on my website: https://www.oe5eir.at/
+
 ## License
 
-Copyright (C) 2023 OE5EIR @ https://www.oe5eir.at/
+Copyright (C) 2023 OE5EIR
 
 Licensed under the GNU General Public License v3.0 (the "License"). \
 You may not use this project except in compliance with the License.

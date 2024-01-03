@@ -41,7 +41,14 @@ public final class Main {
         switch (args.length) {
             case 1:
                 try {
-                    main(args[0]);
+                    main(args[0], false);
+                } catch (Exception e) {
+                    System.err.println(Util.getCause(e));
+                }
+                break;
+            case 2:
+                try {
+                    main(args[0], true);
                 } catch (Exception e) {
                     System.err.println(Util.getCause(e));
                 }
@@ -50,14 +57,14 @@ public final class Main {
                 GUI.show();
                 return;
             default:
-                System.out.println("Parameter 1: output filename");
+                System.out.println("Parameter 1: output filename\r\n(optional) Parameter 2: city as channel name instead on mountain");
                 return;
         }
 
         System.out.println(String.format("Completed in %.1f seconds.", (System.currentTimeMillis() - time) / 1000.0f));
     }
 
-    public static void main(String file) throws IOException {
+    public static void main(String file, boolean cityAsName) throws IOException {
         System.out.println("Getting data from OEVSV Repeater API...");
 
         JSONArray fm70cm = getJsonData("https://repeater.oevsv.at/api/trx?status=eq.active&type_of_station=eq.repeater_voice&fm=eq.true&band=eq.70cm");
@@ -67,10 +74,10 @@ public final class Main {
 
         System.out.println("Processing dataset...");
 
-        List<Channel> fm70cmList = convertDataFM(fm70cm);
-        List<Channel> fm2mList = convertDataFM(fm2m);
-        List<Channel> c4fm70cmList = convertDataC4FM(c4fm70cm);
-        List<Channel> c4fm2mList = convertDataC4FM(c4fm2m);
+        List<Channel> fm70cmList = convertDataFM(fm70cm, cityAsName);
+        List<Channel> fm2mList = convertDataFM(fm2m, cityAsName);
+        List<Channel> c4fm70cmList = convertDataC4FM(c4fm70cm, cityAsName);
+        List<Channel> c4fm2mList = convertDataC4FM(c4fm2m, cityAsName);
 
         System.out.println("Writing output file...");
 
@@ -155,7 +162,7 @@ public final class Main {
         return ((JSONObject) new JSONArray(content.toString()).get(0)).getString("city");
     }
 
-    private static List<Channel> convertDataFM(JSONArray data) throws IOException {
+    private static List<Channel> convertDataFM(JSONArray data, boolean cityAsName) throws IOException {
         List<Channel> list = new ArrayList<>();
 
         for (Object row : data) {
@@ -171,7 +178,14 @@ public final class Main {
             Object ctcssRxObj = ((JSONObject) row).get("ctcss_rx");
             Double ctcssRx = fixBullshitToDouble(ctcssRxObj);
 
-            String name = callsign + " " + fixString(city,9);
+            String name = callsign + " ";
+
+            if (cityAsName) {
+                name += fixString(city,9);
+            } else {
+                name += fixString(location,9);
+            }
+
             ToneMode toneMode = ctcssRx != null ? ToneMode.TONESQL : ToneMode.OFF;
 
             // filter out repeaters which have abnormal shift
@@ -190,7 +204,7 @@ public final class Main {
         return list;
     }
 
-    private static List<Channel> convertDataC4FM(JSONArray data) throws IOException {
+    private static List<Channel> convertDataC4FM(JSONArray data, boolean cityAsName) throws IOException {
         List<Channel> list = new ArrayList<>();
 
         for (Object row : data) {
@@ -202,7 +216,14 @@ public final class Main {
             Object rxo = ((JSONObject) row).get("frequency_rx");
             double rx = fixBullshitToDouble(rxo);
 
-            String name = callsign + " " + fixString(city,9);
+            String name = callsign + " ";
+
+            if (cityAsName) {
+                name += fixString(city,9);
+            } else {
+                name += fixString(location,9);
+            }
+
             double offsetFrequency = Math.abs(rx-tx);
 
             // filter out crappy API data
