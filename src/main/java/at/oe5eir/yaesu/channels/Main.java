@@ -53,9 +53,9 @@ public final class Main {
                     System.err.println(Util.getCause(e));
                 }
                 break;
-            case 0:
-                GUI.show();
-                return;
+            //case 0:
+            //    GUI.show();
+            //    return;
             default:
                 System.out.println("Parameter 1: output filename\r\n(optional) Parameter 2: city as channel name instead on mountain");
                 return;

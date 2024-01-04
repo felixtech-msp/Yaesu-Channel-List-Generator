@@ -10,12 +10,6 @@ public final class GUI {
     static void show() {
         String title = "OE5EIR Yaesu FT3D ÖVSV Repeater List Generator";
 
-        JOptionPane.showMessageDialog(null, "GUI unavailable", title, JOptionPane.ERROR_MESSAGE);
-
-        // abort program as the GUI is unreliable
-        if (1 == 1)
-            return;
-
         JFileChooser fc = new JFileChooser();
         fc.setMultiSelectionEnabled(false);
         fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
@@ -36,7 +30,7 @@ public final class GUI {
         }
 
         try {
-            Main.main(file.getAbsolutePath());
+            Main.main(file.getAbsolutePath(), true); // TODO Checkbox
             JOptionPane.showMessageDialog(null, "Operation completed successfully.", title, JOptionPane.INFORMATION_MESSAGE);
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), title, JOptionPane.ERROR_MESSAGE);
