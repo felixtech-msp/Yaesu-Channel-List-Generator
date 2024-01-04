@@ -13,8 +13,6 @@ It generates a channel list with all Austrian FM and C4FM repeaters.
 
 Double-click the downloaded file. Java should automatically open the application.
 
-*Notice: The GUI is currently in development and not yet available!*
-
 ## Run the application via Command Line (CLI)
 Open a shell on your machine and navigate to the folder containing the downloaded or self-created JAR file.
 

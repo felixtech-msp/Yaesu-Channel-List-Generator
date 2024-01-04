@@ -41,21 +41,21 @@ public final class Main {
         switch (args.length) {
             case 1:
                 try {
-                    main(args[0], false);
+                    start(args[0], false);
                 } catch (Exception e) {
                     System.err.println(Util.getCause(e));
                 }
                 break;
             case 2:
                 try {
-                    main(args[0], true);
+                    start(args[0], true);
                 } catch (Exception e) {
                     System.err.println(Util.getCause(e));
                 }
                 break;
-            //case 0:
-            //    GUI.show();
-            //    return;
+            case 0:
+                new GUI().show();
+                return;
             default:
                 System.out.println("Parameter 1: output filename\r\n(optional) Parameter 2: city as channel name instead on mountain");
                 return;
@@ -64,7 +64,7 @@ public final class Main {
         System.out.println(String.format("Completed in %.1f seconds.", (System.currentTimeMillis() - time) / 1000.0f));
     }
 
-    public static void main(String file, boolean cityAsName) throws IOException {
+    public static void start(String file, boolean cityAsName) throws IOException {
         System.out.println("Getting data from OEVSV Repeater API...");
 
         JSONArray fm70cm = getJsonData("https://repeater.oevsv.at/api/trx?status=eq.active&type_of_station=eq.repeater_voice&fm=eq.true&band=eq.70cm");
