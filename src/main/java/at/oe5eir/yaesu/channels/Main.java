@@ -112,12 +112,12 @@ public final class Main {
         System.out.println("List Location: " + csvFile.getAbsoluteFile());
     }
 
-    private static JSONArray getJsonData(String apiUrl) throws IOException {
-        URL url = new URL(apiUrl);
+    private static JSONArray internalDownloadJsonArray(String _url, int timeout) throws IOException {
+        URL url = new URL(_url);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setRequestMethod("GET");
-        con.setConnectTimeout(5000);
-        con.setReadTimeout(5000);
+        con.setConnectTimeout(timeout);
+        con.setReadTimeout(timeout);
         con.setInstanceFollowRedirects(false);
 
         int status = con.getResponseCode();
@@ -126,7 +126,7 @@ public final class Main {
 
         BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
         String inputLine;
-        StringBuffer content = new StringBuffer();
+        StringBuilder content = new StringBuilder();
         while ((inputLine = in.readLine()) != null) {
             content.append(inputLine);
         }
@@ -137,29 +137,14 @@ public final class Main {
         return new JSONArray(content.toString());
     }
 
+    private static JSONArray getJsonData(String apiUrl) throws IOException {
+        return internalDownloadJsonArray(apiUrl, 5000);
+    }
+
     private static String getCity(String location) throws IOException {
-        URL url = new URL("https://repeater.oevsv.at/api/site?site_name=eq." + location.replace(" ", "%20"));
-        HttpURLConnection con = (HttpURLConnection) url.openConnection();
-        con.setRequestMethod("GET");
-        con.setConnectTimeout(3000);
-        con.setReadTimeout(3000);
-        con.setInstanceFollowRedirects(false);
-
-        int status = con.getResponseCode();
-        if (status != 200)
-            System.out.println("Status: " + status);
-
-        BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-        String inputLine;
-        StringBuffer content = new StringBuffer();
-        while ((inputLine = in.readLine()) != null) {
-            content.append(inputLine);
-        }
-        in.close();
-
-        con.disconnect();
-
-        return ((JSONObject) new JSONArray(content.toString()).get(0)).getString("city");
+        String url = "https://repeater.oevsv.at/api/site?site_name=eq." + location.replace(" ", "%20");
+        JSONArray content = internalDownloadJsonArray(url, 3000);
+        return ((JSONObject) content.get(0)).getString("city");
     }
 
     private static List<Channel> convertDataFM(JSONArray data, boolean cityAsName) throws IOException {
@@ -238,7 +223,7 @@ public final class Main {
     }
 
     private static String fixString(String s, int len) {
-        String str = new String(s);
+        String str = s;
         str = str.replaceAll("\\d","");
         str = str.replace("ß","ss");
         str = str.replace("Ä","Ae");
@@ -276,9 +261,6 @@ public final class Main {
 
         if (a == null && b != null)
             return false;
-
-        if (a == b)
-            return true;
 
         return a.equals(b);
     }

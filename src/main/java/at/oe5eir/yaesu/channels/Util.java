@@ -52,7 +52,7 @@ public class Util {
     }
 
     private static Set<Integer> toDelimiterSet(char[] delimiters) {
-        Set<Integer> delimiterHashSet = new HashSet();
+        Set<Integer> delimiterHashSet = new HashSet<>();
         delimiterHashSet.add(Character.codePointAt(new char[]{' '}, 0));
         if (delimiters == null || Array.getLength(delimiters) == 0) {
             return delimiterHashSet;

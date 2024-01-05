@@ -8,9 +8,10 @@ import java.io.IOException;
 import java.io.PrintStream;
 
 import static java.awt.GridBagConstraints.*;
+import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
 public final class GUI {
-    private static final String title = "OE5EIR Yaesu FT3D ÖVSV Repeater List Generator";
+    private static final String TITLE = "OE5EIR Yaesu FT3D ÖVSV Repeater List Generator";
 
     private JFrame window;
     private File file = null;
@@ -20,8 +21,8 @@ public final class GUI {
     private JRadioButton rbMountain, rbCity;
 
     GUI() {
-        window = new JFrame(title);
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window = new JFrame(TITLE);
+        window.setDefaultCloseOperation(EXIT_ON_CLOSE);
         window.setLayout(new GridBagLayout());
         window.setResizable(false);
         window.setLocationRelativeTo(null);
@@ -112,7 +113,7 @@ public final class GUI {
             file = new File(file.getAbsolutePath() + ".csv");
 
         if (file.exists()) {
-            int overwrite = JOptionPane.showConfirmDialog(null, "The file already exists. Do you want to overwrite it?", title, JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            int overwrite = JOptionPane.showConfirmDialog(null, "The file already exists. Do you want to overwrite it?", TITLE, JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
             if (overwrite == JOptionPane.NO_OPTION)
                 return false;
         }
@@ -129,9 +130,9 @@ public final class GUI {
         Thread thread = new Thread(() -> {
             try {
                 Main.start(file.getAbsolutePath(), cityAsName);
-                JOptionPane.showMessageDialog(window, "Operation completed successfully.", title, JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(window, "Operation completed successfully.", TITLE, JOptionPane.INFORMATION_MESSAGE);
             } catch (IOException ex) {
-                JOptionPane.showMessageDialog(window, ex.getMessage(), title, JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(window, ex.getMessage(), TITLE, JOptionPane.ERROR_MESSAGE);
             }
 
             selectFileButton.setEnabled(true);
