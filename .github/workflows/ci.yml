@@ -1,0 +1,31 @@
+name: CI and Code Analysis
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up JDK
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+
+    - name: Build
+      run: mvn clean install
+
+    - name: Run Unit Tests
+      run: mvn test
+
+    - name: SonarQube Scan
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      run: mvn clean verify sonar:sonar -Dsonar.host.url=${{ secrets.SONAR_HOST }} -Dsonar.projectKey=${{ secrets.SONAR_PROJECT }}
